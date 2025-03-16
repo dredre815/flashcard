@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Interactive flashcards for learning software engineering concepts"
+    />
+    <meta name="theme-color" content="#4361ee" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>Software Engineering Flashcards</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="theme-switcher">
+        <button
+          id="themeBtn"
+          class="theme-btn action-btn"
+          aria-label="Toggle theme"
+        >
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="theme-dropdown dropdown-menu">
+          <div class="theme-option" data-theme="system">
+            <i class="fas fa-desktop"></i> System
+          </div>
+          <div class="theme-option" data-theme="light">
+            <i class="fas fa-sun"></i> Light
+          </div>
+          <div class="theme-option" data-theme="dark">
+            <i class="fas fa-moon"></i> Dark
+          </div>
+        </div>
+      </div>
+
+      <div class="animation-switcher">
+        <button
+          id="animationBtn"
+          class="animation-btn action-btn"
+          aria-label="Change animation"
+        >
+          <i class="fas fa-magic"></i>
+        </button>
+        <div class="animation-dropdown dropdown-menu">
+          <div class="animation-option" data-animation="slide">
+            <i class="fas fa-arrows-alt-h"></i> Slide
+          </div>
+          <div class="animation-option" data-animation="fade">
+            <i class="fas fa-star"></i> Fade
+          </div>
+          <div class="animation-option" data-animation="scale">
+            <i class="fas fa-search-plus"></i> Scale
+          </div>
+          <div class="animation-option" data-animation="rotate">
+            <i class="fas fa-sync-alt"></i> Rotate
+          </div>
+          <div class="animation-option" data-animation="bounce">
+            <i class="fas fa-basketball-ball"></i> Bounce
+          </div>
+        </div>
+      </div>
+
+      <header>
+        <h1><i class="fas fa-code"></i> Software Engineering Flashcards</h1>
+        <div class="controls">
+          <button
+            id="shuffleBtn"
+            class="btn-primary"
+            aria-label="Shuffle cards"
+          >
+            <i class="fas fa-random"></i> Shuffle
+          </button>
+          <div class="progress-container" aria-live="polite">
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span class="progress-percentage" id="progressPercentage"
+                >0%</span
+              >
+              <span class="progress-fraction" id="progressFraction">0/0</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="card-container">
+        <div
+          class="flashcard"
+          id="flashcard"
+          tabindex="0"
+          aria-label="Flashcard, tap or swipe to interact"
+        >
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="card-content">
+                <p id="questionText">Loading flashcards...</p>
+              </div>
+            </div>
+            <div class="flashcard-back">
+              <div class="card-content">
+                <p id="answerText"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <button id="prevBtn" class="btn-outline" aria-label="Previous card">
+            <i class="fas fa-chevron-left"></i> Previous
+          </button>
+          <button id="flipBtn" class="btn-primary" aria-label="Flip card">
+            <i class="fas fa-sync-alt"></i> Flip Card
+          </button>
+          <button id="nextBtn" class="btn-outline" aria-label="Next card">
+            Next <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="keyboard-shortcuts" aria-hidden="true">
+          <div class="shortcut"><span class="key">←</span> Previous card</div>
+          <div class="shortcut"><span class="key">Space</span> Flip card</div>
+          <div class="shortcut"><span class="key">→</span> Next card</div>
+        </div>
+      </main>
+
+      <footer>
+        <p>Swipe left/right to navigate. Tap card to flip.</p>
+      </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1451 @@
+:root {
+  /* Light theme (default) - Refreshed color palette */
+  --primary-color: #4361ee;
+  --primary-light: #4895ef;
+  --primary-dark: #3a0ca3;
+  --success-color: #4cc9f0;
+  --warning-color: #f72585;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --gray-color: #6c757d;
+  --gray-light: #e9ecef;
+  --bg-color: #f8f9fa;
+  --bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --card-front-bg: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+  --card-back-bg: linear-gradient(
+    135deg,
+    var(--primary-light) 0%,
+    var(--primary-dark) 100%
+  );
+  --card-front-color: var(--dark-color);
+  --card-back-color: white;
+  --text-color: var(--dark-color);
+  --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 15px 30px rgba(67, 97, 238, 0.15);
+  --border-radius: 16px;
+  --button-radius: 12px;
+  --transition: all 0.3s ease;
+  --card-height-large: 450px;
+  --card-height-medium: 380px;
+  --card-height-small: 280px;
+  --card-height-tiny: 230px;
+}
+
+/* Dark theme - Enhanced with better contrast */
+[data-theme="dark"] {
+  --primary-color: #4cc9f0;
+  --primary-light: #4895ef;
+  --primary-dark: #3a0ca3;
+  --success-color: #4cc9f0;
+  --warning-color: #f72585;
+  --light-color: #e9ecef;
+  --dark-color: #f8f9fa;
+  --gray-color: #adb5bd;
+  --gray-light: #343a40;
+  --bg-color: #121212;
+  --bg-gradient: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+  --card-front-bg: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  --card-back-bg: linear-gradient(135deg, #3a0ca3 0%, #480ca8 100%);
+  --card-front-color: var(--light-color);
+  --card-back-color: white;
+  --text-color: var(--light-color);
+  --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0 15px 30px rgba(76, 201, 240, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-gradient);
+  transition: background 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.8s ease-out;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 i {
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: var(--button-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+button:active::after {
+  opacity: 0.3;
+  transform: scale(80, 80) translate(-50%);
+  transition: all 0.6s ease-out;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(67, 97, 238, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(67, 97, 238, 0.2);
+}
+
+.btn-outline:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Theme switcher - Improved */
+.theme-switcher {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+}
+
+.theme-btn {
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 160px;
+  z-index: 10;
+  overflow: hidden;
+  display: none;
+  margin-top: 0.75rem;
+  border: 1px solid var(--gray-light);
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.theme-switcher.active .theme-dropdown {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.theme-option {
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--transition);
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.theme-option:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateX(5px);
+}
+
+.theme-option.active {
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.theme-option i {
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+#progress {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  background-color: var(--light-color);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--button-radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  animation: fadeIn 1s ease-out 0.3s both;
+  width: 100%;
+}
+
+.flashcard {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 600px;
+  height: var(--card-height-medium);
+  margin: 0 auto 2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  overflow: auto;
+}
+
+.flashcard-front {
+  background: var(--card-front-bg);
+  color: var(--card-front-color);
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+.flashcard-back {
+  background: var(--card-back-bg);
+  color: var(--card-back-color);
+  transform: rotateY(180deg);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.card-content {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-light) transparent;
+  text-align: left;
+  line-height: 1.7;
+}
+
+.card-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+  background-color: var(--primary-light);
+  border-radius: 20px;
+}
+
+/* Add support for various content formats. */
+.card-content h1,
+.card-content h2,
+.card-content h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.card-content h1 {
+  font-size: 1.5rem;
+}
+
+.card-content h2 {
+  font-size: 1.3rem;
+}
+
+.card-content h3 {
+  font-size: 1.1rem;
+}
+
+.card-content p {
+  margin-bottom: 0.8rem;
+}
+
+.card-content ul,
+.card-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-content li {
+  margin-bottom: 0.5rem;
+}
+
+.card-content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.card-content pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.card-content pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  display: block;
+  line-height: 1.5;
+}
+
+.card-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.card-content table th,
+.card-content table td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+}
+
+.card-content table th {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card-content blockquote {
+  border-left: 4px solid var(--primary-light);
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+/* Adjust styles for dark mode */
+[data-theme="dark"] .card-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .card-content pre {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .card-content table th,
+[data-theme="dark"] .card-content table td {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .card-content table th {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Card animations - Enhanced */
+.flashcard.card-changed {
+  animation: cardChange 0.3s ease-out;
+}
+
+@keyframes cardChange {
+  0% {
+    transform: translateX(10px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.flashcard.deck-changed {
+  animation: deckChange 0.5s ease-out;
+}
+
+@keyframes deckChange {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.flashcard.shuffling {
+  animation: shuffle 0.5s ease-out;
+}
+
+@keyframes shuffle {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  25% {
+    transform: translateY(-15px) rotate(-3deg);
+  }
+  75% {
+    transform: translateY(8px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+}
+
+.flashcard.at-boundary {
+  animation: boundary 0.3s ease-out;
+}
+
+@keyframes boundary {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+.flashcard.loading {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+}
+
+/* Improved styling for known cards */
+.flashcard.known .flashcard-inner {
+  box-shadow: 0 10px 25px rgba(76, 201, 240, 0.3);
+  border: 2px solid var(--success-color);
+}
+
+.flashcard.known .flashcard-front {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 201, 240, 0.15) 0%,
+    rgba(76, 201, 240, 0.25) 100%
+  );
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.keyboard-shortcuts {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  color: var(--gray-color);
+  font-size: 0.9rem;
+  animation: fadeIn 1s ease-out 1.5s both;
+}
+
+.shortcut {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--transition);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+}
+
+.shortcut:hover {
+  color: var(--primary-color);
+  background-color: rgba(67, 97, 238, 0.05);
+}
+
+.key {
+  background-color: var(--gray-light);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-weight: bold;
+  transition: var(--transition);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+}
+
+.shortcut:hover .key {
+  background-color: var(--primary-light);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Responsive design - Improved */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.25rem;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .controls {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .flashcard {
+    height: 330px;
+    max-width: 100%;
+  }
+
+  .navigation {
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  .navigation button {
+    padding: 0.85rem 1rem;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .keyboard-shortcuts {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .card-container {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust the control area to a more compact vertical layout. */
+  .controls {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    width: 100%;
+  }
+
+  /* Shuffle button style optimization */
+  #shuffleBtn {
+    width: auto;
+    padding: 0.7rem 1.25rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    margin: 0 auto;
+  }
+
+  /* Progress bar container style */
+  .progress-container {
+    max-width: 90%;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .progress-bar {
+    height: 6px;
+  }
+
+  /* Adjust card style */
+  .flashcard {
+    height: var(--card-height-tiny);
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Adjust the top space to move the title down to avoid being covered by the button. */
+  h1 {
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    font-size: 1.35rem;
+    line-height: 1.3;
+  }
+
+  footer {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+  }
+
+  .card-content p {
+    margin-bottom: 0.6rem;
+  }
+
+  .card-content ul,
+  .card-content ol {
+    margin-left: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-content li {
+    margin-bottom: 0.4rem;
+  }
+
+  .theme-switcher {
+    top: 15px;
+    right: 15px;
+  }
+
+  .theme-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+
+  .theme-dropdown {
+    right: 0;
+    width: 160px;
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    padding: 1rem;
+  }
+
+  .card-content {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .flashcard-front {
+    font-size: 1.2rem;
+  }
+
+  .flashcard-back {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .navigation {
+    gap: 0.75rem;
+  }
+
+  .navigation button {
+    width: 100%;
+    padding: 0.9rem 1rem;
+  }
+
+  #progress {
+    min-width: auto;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+  }
+
+  /* Hide keyboard shortcuts on mobile */
+  .keyboard-shortcuts {
+    display: none;
+  }
+
+  .progress-container {
+    max-width: 160px;
+  }
+
+  .progress-text {
+    font-size: 0.75rem;
+  }
+
+  .flashcard::after {
+    right: 10px !important;
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  footer {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Touch device optimizations - Enhanced */
+@media (hover: none) {
+  .flashcard {
+    cursor: default;
+  }
+
+  button {
+    padding: 1rem 1.35rem; /* Larger touch targets */
+  }
+
+  .theme-option {
+    padding: 1.1rem 1.25rem; /* Larger touch targets */
+  }
+
+  /* Hide navigation buttons on mobile devices since we use swipe gestures */
+  .navigation {
+    display: none;
+  }
+
+  /* Optimize sliding hint animation */
+  @keyframes swipeHint {
+    0%,
+    100% {
+      opacity: 0.2;
+      transform: translateY(-50%) translateX(-3px) rotate(45deg);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translateY(-50%) translateX(3px) rotate(45deg);
+    }
+  }
+
+  .flashcard:not(.flipped)::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    border-top: 2px solid var(--primary-color);
+    border-left: 2px solid var(--primary-color);
+    transform: translateY(-50%) rotate(-45deg);
+    animation: swipeHintLeft 1.8s infinite;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  @keyframes swipeHintLeft {
+    0%,
+    100% {
+      opacity: 0.2;
+      transform: translateY(-50%) translateX(3px) rotate(-45deg);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translateY(-50%) translateX(-3px) rotate(-45deg);
+    }
+  }
+
+  /* Add tap hint text */
+  .flashcard:not(.flipped)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-top: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+    transform: translateY(-50%) rotate(45deg);
+    animation: swipeHint 1.8s infinite;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 480px) {
+    .flashcard::after {
+      right: 10px;
+      width: 20px;
+      height: 20px;
+    }
+
+    .flashcard::before {
+      left: 10px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+/* Add ripple effect for touch feedback */
+.ripple {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Footer styles */
+footer {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  color: var(--gray-color);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--gray-light);
+  display: none; /* Hidden on desktop by default */
+}
+
+/* Show footer on mobile */
+@media (hover: none) {
+  footer {
+    display: block;
+  }
+}
+
+/* Animation for theme icon */
+@keyframes animated {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animated {
+  animation: animated 0.5s ease;
+}
+
+/* Error message styles */
+.error-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+  background-color: rgba(247, 37, 133, 0.1);
+  border: 2px solid var(--warning-color);
+  border-radius: var(--border-radius);
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.error-message {
+  color: var(--warning-color);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.retry-button {
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .error-container {
+    padding: 1rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Graphical progress bar */
+.progress-container {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  position: relative;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--gray-light);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    var(--primary-light),
+    var(--primary-dark)
+  );
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: var(--gray-color);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.progress-percentage {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.progress-fraction {
+  color: var(--gray-color);
+}
+
+/* Progress bar style on mobile devices */
+@media (max-width: 768px) {
+  .progress-container {
+    max-width: 200px;
+  }
+}
+
+/* Large screen - 1200px and above */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+    padding: 2rem;
+  }
+
+  .flashcard {
+    max-width: 700px;
+    height: var(--card-height-large);
+  }
+
+  .card-content {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+/* Medium screen - 768px to 1199px */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .flashcard {
+    max-width: 600px;
+    height: var(--card-height-medium);
+  }
+}
+
+/* Small screen tablet - 481px to 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .flashcard {
+    height: var(--card-height-small);
+  }
+
+  .flashcard-front {
+    font-size: 1.2rem;
+  }
+
+  .flashcard-back {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile screen - 480px and below */
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+    padding: 0 1rem;
+  }
+
+  .controls {
+    margin-bottom: 1.5rem;
+  }
+
+  .flashcard {
+    height: var(--card-height-tiny);
+    margin-bottom: 1.5rem;
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    padding: 0.75rem;
+  }
+
+  .card-content {
+    padding: 0.75rem;
+  }
+
+  .flashcard-front {
+    font-size: 1.1rem;
+  }
+
+  .flashcard-back {
+    font-size: 0.95rem;
+  }
+
+  .progress-container {
+    max-width: 180px;
+  }
+}
+
+/* Landscape mode optimization */
+@media (orientation: landscape) and (max-height: 600px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .controls {
+    margin-bottom: 0.75rem;
+  }
+
+  .flashcard {
+    height: 200px;
+    margin-bottom: 0.75rem;
+  }
+
+  .navigation {
+    margin-bottom: 0.5rem;
+  }
+
+  .keyboard-shortcuts {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Card transition animation collection */
+/* 1. Default slide */
+.transition-slide .flashcard.card-changed {
+  animation: cardSlide 0.4s ease-out;
+}
+
+@keyframes cardSlide {
+  0% {
+    transform: translateX(20px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 2. Fade in and out */
+.transition-fade .flashcard.card-changed {
+  animation: cardFade 0.5s ease-out;
+}
+
+@keyframes cardFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 3. Scale */
+.transition-scale .flashcard.card-changed {
+  animation: cardScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardScale {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 4. Rotate */
+.transition-rotate .flashcard.card-changed {
+  animation: cardRotate 0.5s ease-out;
+}
+
+@keyframes cardRotate {
+  0% {
+    transform: rotateZ(-3deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotateZ(0);
+    opacity: 1;
+  }
+}
+
+/* 5. Bounce */
+.transition-bounce .flashcard.card-changed {
+  animation: cardBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes cardBounce {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Animation switcher styles */
+.animation-switcher {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 100;
+}
+
+.animation-btn {
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+}
+
+.animation-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 160px;
+  z-index: 10;
+  overflow: hidden;
+  display: none;
+  margin-top: 0.75rem;
+  border: 1px solid var(--gray-light);
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.animation-switcher.active .animation-dropdown {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.animation-option {
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--transition);
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.animation-option:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateX(5px);
+}
+
+.animation-option.active {
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.animation-option i {
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .animation-switcher {
+    right: 80px;
+  }
+
+  .animation-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .animation-switcher {
+    top: 15px;
+    right: 70px;
+  }
+
+  .animation-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .animation-dropdown {
+    width: 160px;
+  }
+
+  .animation-option {
+    padding: 0.9rem 1rem;
+  }
+}
+
+/* Top operation button unified style */
+.action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow);
+  font-size: 1.2rem;
+  transition: var(--transition);
+  z-index: 100;
+}
+
+.action-btn:hover,
+.action-btn:active {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Dropdown menu unified style */
+.dropdown-menu {
+  position: absolute;
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 160px;
+  z-index: 10;
+  overflow: hidden;
+  display: none;
+  margin-top: 0.75rem;
+  border: 1px solid var(--gray-light);
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.dropdown-menu.active {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Use unified style */
+.theme-dropdown {
+  right: 0;
+}
+
+.animation-dropdown {
+  left: 0;
+}
+
+/* Landscape mode special optimization */
+@media (orientation: landscape) and (max-height: 500px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    margin: 1.5rem 0 0.5rem 0;
+    padding-top: 1.5rem;
+  }
+
+  .controls {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .flashcard {
+    height: 180px;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-content {
+    padding: 0.75rem;
+  }
+}
+
+.theme-btn,
+.animation-btn {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}

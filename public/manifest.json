@@ -1,0 +1,21 @@
+{
+  "name": "Software Engineering Flashcards",
+  "short_name": "Flashcards",
+  "description": "Interactive flashcards for learning software engineering concepts",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#4361ee",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
