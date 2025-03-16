@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const animationBtn = document.getElementById("animationBtn");
   const animationSwitcher = document.querySelector(".animation-switcher");
   const animationOptions = document.querySelectorAll(".animation-option");
+  const markKnownBtn = document.getElementById("markKnownBtn");
 
   // App State
   let cards = [];
@@ -28,14 +29,23 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchEndY = 0;
   let isSwiping = false;
 
+  // Local storage keys
+  const STORAGE_KEYS = {
+    CURRENT_INDEX: "flashcard_current_index",
+    CARDS_ORDER: "flashcard_cards_order",
+    CARDS_KNOWN_STATUS: "flashcard_cards_known_status",
+    THEME: "flashcardTheme",
+    ANIMATION: "flashcardAnimation",
+  };
+
   // Initialize
-  init();
+  initApp();
   initTheme();
   initAnimationSwitcher();
   detectMobileDevice();
   setupRippleEffect();
 
-  async function init() {
+  async function initApp() {
     try {
       // Show loading animation
       showLoading(true);
@@ -357,8 +367,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       cards = data.cards;
 
-      // Randomize the initial order
-      shuffleCards();
+      // Load saved card status from local storage
+      loadSavedCardState();
 
       // Update display
       updateCardDisplay();
@@ -403,7 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
     retryButton.innerHTML = '<i class="fas fa-sync-alt"></i> Retry';
     retryButton.addEventListener("click", () => {
       errorContainer.remove();
-      init();
+      initApp();
     });
 
     // Append elements
@@ -440,13 +450,18 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update known status if needed
       if (currentCard.known === 1) {
         flashcard.classList.add("known");
+        markKnownBtn.innerHTML = '<i class="fas fa-times"></i> Mark Unknown';
       } else {
         flashcard.classList.remove("known");
+        markKnownBtn.innerHTML = '<i class="fas fa-check"></i> Mark Known';
       }
     }, 150);
 
     // Update progress
     updateProgress();
+
+    // Save the current state to local storage
+    saveCardState();
   }
 
   // Flip the card with animation
@@ -504,6 +519,9 @@ document.addEventListener("DOMContentLoaded", () => {
       flashcard.classList.remove("shuffling");
       updateCardDisplay();
     }, 500);
+
+    // Save the shuffled state
+    saveCardState();
   }
 
   // Navigation functions
@@ -513,6 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentCardIndex > 0) {
       currentCardIndex--;
       updateCardDisplay();
+      // Note: updateCardDisplay already calls saveCardState
     } else {
       // At the beginning, show boundary animation
       flashcard.classList.add("at-boundary");
@@ -528,6 +547,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentCardIndex < cards.length - 1) {
       currentCardIndex++;
       updateCardDisplay();
+      // Note: updateCardDisplay already calls saveCardState
     } else {
       // At the end, show boundary animation
       flashcard.classList.add("at-boundary");
@@ -540,6 +560,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event Listeners
   shuffleBtn.addEventListener("click", shuffleCards);
   flipBtn.addEventListener("click", flipCard);
+  markKnownBtn.addEventListener("click", toggleCardKnown);
 
   // Also flip card when clicking on it (only on non-touch devices)
   flashcard.addEventListener("click", (e) => {
@@ -674,5 +695,115 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add animation class
     flashcard.classList.add("card-changed");
+  }
+
+  // Save current card state to local storage
+  function saveCardState() {
+    try {
+      // Save current index
+      localStorage.setItem(
+        STORAGE_KEYS.CURRENT_INDEX,
+        currentCardIndex.toString()
+      );
+
+      // Save card order (store card IDs in current order)
+      const cardOrder = cards.map((card) => card.id);
+      localStorage.setItem(STORAGE_KEYS.CARDS_ORDER, JSON.stringify(cardOrder));
+
+      // Save known status for each card
+      const knownStatus = {};
+      cards.forEach((card) => {
+        knownStatus[card.id] = card.known;
+      });
+      localStorage.setItem(
+        STORAGE_KEYS.CARDS_KNOWN_STATUS,
+        JSON.stringify(knownStatus)
+      );
+
+      console.log("Card state saved to local storage");
+    } catch (error) {
+      console.error("Failed to save card state:", error);
+    }
+  }
+
+  // Load saved card state from local storage
+  function loadSavedCardState() {
+    try {
+      // Load card order
+      const savedOrder = localStorage.getItem(STORAGE_KEYS.CARDS_ORDER);
+      if (savedOrder) {
+        const cardOrder = JSON.parse(savedOrder);
+
+        // If we have the same number of cards, reorder them
+        if (cardOrder.length === cards.length) {
+          // Create a map of id to card for quick lookups
+          const cardMap = {};
+          cards.forEach((card) => {
+            cardMap[card.id] = card;
+          });
+
+          // Reorder cards based on saved order
+          cards = cardOrder.map((id) => cardMap[id]);
+          console.log("Restored card order from local storage");
+        }
+      }
+
+      // Load known status
+      const savedKnownStatus = localStorage.getItem(
+        STORAGE_KEYS.CARDS_KNOWN_STATUS
+      );
+      if (savedKnownStatus) {
+        const knownStatus = JSON.parse(savedKnownStatus);
+
+        // Update each card's known status
+        cards.forEach((card) => {
+          if (knownStatus[card.id] !== undefined) {
+            card.known = knownStatus[card.id];
+          }
+        });
+        console.log("Restored known status from local storage");
+      }
+
+      // Load current index
+      const savedIndex = localStorage.getItem(STORAGE_KEYS.CURRENT_INDEX);
+      if (savedIndex) {
+        const index = parseInt(savedIndex, 10);
+        if (!isNaN(index) && index >= 0 && index < cards.length) {
+          currentCardIndex = index;
+          console.log("Restored current card index from local storage");
+        }
+      }
+    } catch (error) {
+      console.error("Failed to load saved card state:", error);
+      // Continue with default state if loading fails
+    }
+  }
+
+  // Toggle current card known status
+  function toggleCardKnown() {
+    if (cards.length === 0) return;
+
+    const currentCard = cards[currentCardIndex];
+
+    // Toggle known status (0 <-> 1)
+    currentCard.known = currentCard.known === 1 ? 0 : 1;
+
+    // Update UI to reflect the new status
+    if (currentCard.known === 1) {
+      flashcard.classList.add("known");
+      markKnownBtn.innerHTML = '<i class="fas fa-times"></i> Mark Unknown';
+    } else {
+      flashcard.classList.remove("known");
+      markKnownBtn.innerHTML = '<i class="fas fa-check"></i> Mark Known';
+    }
+
+    // Save state to local storage
+    saveCardState();
+
+    // Show feedback animation
+    flashcard.classList.add("status-changed");
+    setTimeout(() => {
+      flashcard.classList.remove("status-changed");
+    }, 300);
   }
 });

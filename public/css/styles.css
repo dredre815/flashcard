@@ -567,16 +567,29 @@ button:active::after {
 
 /* Improved styling for known cards */
 .flashcard.known .flashcard-inner {
-  box-shadow: 0 10px 25px rgba(76, 201, 240, 0.3);
-  border: 2px solid var(--success-color);
+  box-shadow: 0 0 15px rgba(46, 213, 115, 0.7);
+  border: 2px solid rgba(46, 213, 115, 0.8);
 }
 
 .flashcard.known .flashcard-front {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 201, 240, 0.15) 0%,
-    rgba(76, 201, 240, 0.25) 100%
-  );
+  background-color: rgba(46, 213, 115, 0.08);
+}
+
+/* Status change animation */
+.flashcard.status-changed {
+  animation: statusChanged 0.4s ease-in-out;
+}
+
+@keyframes statusChanged {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .navigation {
