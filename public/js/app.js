@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchStartY = 0;
   let touchEndY = 0;
   let isSwiping = false;
+  let touchEndedRecently = false; // Add a flag to track recent touch events
 
   // Local storage keys
   const STORAGE_KEYS = {
@@ -173,6 +174,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Math.abs(diffX) < 20 && diffY < 20) {
       // Tap - flip the card
       flipCard();
+
+      // Set the flag to prevent the click event from also triggering
+      touchEndedRecently = true;
+      setTimeout(() => {
+        touchEndedRecently = false;
+      }, 300); // Delay slightly longer than the browser's click event delay
     }
     // Horizontal swipe detection with threshold and more horizontal than vertical
     else if (Math.abs(diffX) > 80 && Math.abs(diffX) > diffY) {
@@ -562,10 +569,11 @@ document.addEventListener("DOMContentLoaded", () => {
   flipBtn.addEventListener("click", flipCard);
   markKnownBtn.addEventListener("click", toggleCardKnown);
 
-  // Also flip card when clicking on it (only on non-touch devices)
+  // Also flip card when clicking on it
   flashcard.addEventListener("click", (e) => {
-    // Only if it's not a mobile device (to avoid conflicts with touch events)
-    if (!window.matchMedia("(hover: none)").matches) {
+    // Only process click if it's not immediately after a touch event
+    // This prevents double-flipping on mobile devices
+    if (!touchEndedRecently) {
       flipCard();
     }
   });
